@@ -1,5 +1,5 @@
-import { Controller, Get } from '@nestjs/common';
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { Controller, Get, Param } from '@nestjs/common';
+import { ApiOperation, ApiParam, ApiTags } from '@nestjs/swagger';
 import { Icd10Service } from '~modules/icd10/icd10.service';
 
 @ApiTags('UK International Classification of Diseases 10th Edition (ICD10)')
@@ -9,11 +9,30 @@ import { Icd10Service } from '~modules/icd10/icd10.service';
 export class Icd10Controller {
   constructor(private readonly icd10Service: Icd10Service) {}
 
-  @Get('/')
+  @Get(':code/validate')
   @ApiOperation({
-    summary: 'testing',
+    summary: 'Check to see if an ICD10 code is valid.',
   })
-  async testing() {
-    return await this.icd10Service.testing();
+  @ApiParam({
+    name: 'code',
+    type: 'string',
+    description: 'ICD10 code you want to validate',
+  })
+  async validateCode(@Param('code') code: string) {
+    const model = await this.icd10Service.find(code);
+    return model.code.length > 0;
+  }
+
+  @Get(':code')
+  @ApiOperation({
+    summary: 'Get an ICD10 record.',
+  })
+  @ApiParam({
+    name: 'code',
+    type: 'string',
+    description: 'ICD10 code you want to get the description for',
+  })
+  async getCodeDescription(@Param('code') code: string) {
+    return await this.icd10Service.find(code);
   }
 }

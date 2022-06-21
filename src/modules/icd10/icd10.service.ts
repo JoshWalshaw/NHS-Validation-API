@@ -1,4 +1,4 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { Icd10 } from '~modules/icd10/icd10.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { DataSource, Repository } from 'typeorm';
@@ -9,16 +9,22 @@ export class Icd10Service {
 
   constructor(
     @InjectRepository(Icd10)
-    private usersRepository: Repository<Icd10>,
+    private icd10Repository: Repository<Icd10>,
     private dataSource: DataSource,
   ) {}
 
-  async testing(): Promise<void> {
-    console.log('being hit');
+  async find(code: string): Promise<Icd10> {
+    const model = await this.icd10Repository.findOne({
+      where: [{ code }, { altCode: code }],
+    });
+
+    if (model) return model;
+
+    throw new NotFoundException('Could not find a ICD10 record with that code');
   }
 
   async getCount(): Promise<number> {
-    return this.usersRepository.count();
+    return this.icd10Repository.count();
   }
 
   async createMany(models: Array<Icd10>) {
@@ -44,6 +50,6 @@ export class Icd10Service {
   }
 
   async deleteAll(): Promise<void> {
-    await this.usersRepository.clear();
+    await this.icd10Repository.clear();
   }
 }
