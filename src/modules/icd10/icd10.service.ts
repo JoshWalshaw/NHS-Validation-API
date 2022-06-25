@@ -2,6 +2,7 @@ import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { Icd10 } from '~modules/icd10/icd10.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { DataSource, Repository } from 'typeorm';
+import { PaginationDto } from '~modules/common/dto/pagination.dto';
 
 @Injectable()
 export class Icd10Service {
@@ -21,6 +22,26 @@ export class Icd10Service {
     if (model) return model;
 
     throw new NotFoundException('Could not find a ICD10 record with that code');
+  }
+
+  async getAll(dto: PaginationDto): Promise<unknown> {
+    const skip = dto.limit * dto.page - dto.limit;
+
+    const query = this.icd10Repository
+      .createQueryBuilder()
+      .select()
+      .skip(skip)
+      .take(dto.limit);
+
+    const { entities } = await query.getRawAndEntities();
+    const count = await query.getCount();
+
+    return {
+      entities,
+      pages: Math.ceil(count / dto.limit),
+      totalRecords: count,
+      returnedRecords: entities.length,
+    };
   }
 
   async getCount(): Promise<number> {
