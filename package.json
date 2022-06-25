@@ -29,6 +29,7 @@
     "@nestjs/swagger": "^5.2.1",
     "@nestjs/typeorm": "^8.1.4",
     "mysql2": "^2.3.3",
+    "nhs-validation": "^1.0.0",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^7.2.0",

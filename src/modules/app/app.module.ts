@@ -4,6 +4,7 @@ import { ScheduleModule } from '@nestjs/schedule';
 import { Icd10Module } from '~modules/icd10/icd10.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Icd10 } from '~modules/icd10/icd10.entity';
+import { NhsNumberModule } from '~modules/nhs-number/nhs-number.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { Icd10 } from '~modules/icd10/icd10.entity';
       synchronize: true,
       charset: 'utf8mb4_unicode_ci',
     }),
+    NhsNumberModule,
     Icd10Module,
   ],
 })

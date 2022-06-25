@@ -3682,6 +3682,11 @@
   "resolved" "https://registry.npmjs.org/neo-async/-/neo-async-2.6.2.tgz"
   "version" "2.6.2"
 
+"nhs-validation@^1.0.0":
+  "integrity" "sha512-Ogr7QQ/n79v7lQEf3w+DTCU5NmCg9WsmRGG+ke4BLso2bU1mUMkE+AN2jYNNfay/XhNFVZNU+EYVxvubBOWezg=="
+  "resolved" "https://registry.npmjs.org/nhs-validation/-/nhs-validation-1.0.0.tgz"
+  "version" "1.0.0"
+
 "node-emoji@1.11.0":
   "integrity" "sha512-wo2DpQkQp7Sjm2A0cq+sN7EHKO6Sl0ctXeBdFZrL9T9+UywORbufTcTZxom8YqpLQt/FqNMUkOpkZrJVYSKD3A=="
   "resolved" "https://registry.npmjs.org/node-emoji/-/node-emoji-1.11.0.tgz"

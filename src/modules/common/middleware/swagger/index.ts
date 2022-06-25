@@ -1,6 +1,7 @@
 import { INestApplication } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { Icd10Module } from '~modules/icd10/icd10.module';
+import { NhsNumberModule } from '~modules/nhs-number/nhs-number.module';
 
 /**
  * Configures Swagger documentation to be generated for the V1 API endpoints.
@@ -21,7 +22,7 @@ export const configureV1Swagger = async (
         .setVersion('0.1')
         .build(),
       {
-        include: [Icd10Module],
+        include: [NhsNumberModule, Icd10Module],
       },
     ),
   );
